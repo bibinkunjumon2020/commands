@@ -1,0 +1,14 @@
+ls -al ~/.ssh      
+ssh-keygen -t rsa -b 4096 -C "name@gmail.com"
+ssh-add ~/.ssh/id_rsa    
+ssh-keygen -t rsa -b 4096 -C "name2@gmail.com"
+ssh-add ~/.ssh/id_rsa_2020
+nano ~/.ssh/config
+ssh -T git@github.com-bibinkunjumon2020
+pbcopy < ~/.ssh/id_rsa.pub {pbcopy < ~/.ssh/id_rsa_2020.pub }
+
+nano ~/.ssh/config
+Host github.com-gitprofile
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_2020
