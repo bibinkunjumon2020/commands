@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVED APPLICATION</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- For icons in buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    .container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
+      
+      table {
+        width: 100%;
+      }
+      
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+      }
+      
+      .table-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: right;
+      }
+      
+      .section-title {
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      
+      /* Adjust the width of the first column */
+      th:first-child,
+      td:first-child {
+        width: 40%;
+      }
+      
+      .custom-file {
+        max-width: 300px;
+        /* Set the maximum width as needed */
+      }
+      .header {
+        background-color: #0b90c5;
+        color: #fff;
+        text-align: center;
+      }
+      
+      .footer {
+        background-color: #343a40; /* Dark color for footer */
+        color: #fff; /* Text color for footer */
+        padding: 20px;
+        text-align: center;
+      }
+      .image-box {
+  width: 150px;
+  height: 200px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  position: relative;
+}
+.image-boxSign {
+  width: 150px;
+  height: 100px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-box img {
+  width: 100%;
+  height: auto;
+}
+
+.image-box input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+</style>      
+
+</head>
+
+<body>
+    <div class="header">
+        <h1>INSTITUTE OF LAND AND DISASTER MANAGEMENT</h1>
+    </div>
+    <div class="container text-center" style="background-color: azure;">
+        <h3 class="mt-5" style="color: rgb(9, 77, 111);">APPLICATION FORM</h3>
+        <p>Admission for the year 2024</p>
+    </div>
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-lg-6">
+                {% if student_application.application_approval_status %}
+                <span class="badge badge-success status-badge flicker-button" style="font-size: 1.7em;">APPROVED</span>
+                {% elif student_application.application_rejection_status %}
+                <span class="badge badge-danger status-badge flicker-button" style="font-size: 1.7em;">REJECTED</span>
+                {% else %}
+                <span class="badge badge-info status-badge flicker-button" style="font-size: 1.7em;">PENDING</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <h3 class="table-title badge badge-success status-badge">SUBMITTED APPLICATION</h3>
+            </div>
+        </div>
+        <div class="section-title">Personal Information</div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Field</th>
+                    <th>Data</th>
+                </tr>
+                <tr>
+                    <td>Application ID</td>
+                    <td>{{ student_application.id }}</td>
+                </tr>
+                <tr>
+                    <td>Applicant Photo</td>
+                    <td>
+                        <div id="imageBox" class="image-box">
+                            <img 
+                                src="{{ applicant_photo_url }}"
+                                class="view-mode" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td>{{ student_application.fullname }}</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>{{ student_application.dob }}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{ student_application.age_years }} Years, {{ student_application.age_months }} Months, {{
+                        student_application.age_days }} Days</td>
+                </tr>
+                <tr>
+                    <td>Nationality</td>
+                    <td>{{ student_application.nationality }}</td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td>{{ student_application.state }}</td>
+                </tr>
+                <tr>
+                    <td>Religion</td>
+                    <td>{{ student_application.religion }}</td>
+                </tr>
+                <tr>
+                    <td>Community</td>
+                    <td>{{ student_application.community }}</td>
+                </tr>
+                <tr>
+                    <td>Caste</td>
+                    <td>{{ student_application.caste }}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ student_application.gender }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Permanent Address</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>House Name/Number</td>
+                    <td>{{ student_application.permanent_address_housename }}</td>
+                </tr>
+                <tr>
+                    <td>Street</td>
+                    <td>{{ student_application.permanent_address_street }}</td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td>{{ student_application.permanent_address_district }}</td>
+                </tr>
+                <tr>
+                    <td>Post Office</td>
+                    <td>{{ student_application.permanent_address_postoffice }}</td>
+                </tr>
+                <tr>
+                    <td>Pincode</td>
+                    <td>{{ student_application.permanent_address_pincode }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Communication Address</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>House Name/Number</td>
+                    <td>{{ student_application.communication_address_housename }}</td>
+                </tr>
+                <tr>
+                    <td>Street</td>
+                    <td>{{ student_application.communication_address_street }}</td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td>{{ student_application.communication_address_district }}</td>
+                </tr>
+                <tr>
+                    <td>Post Office</td>
+                    <td>{{ student_application.communication_address_postoffice }}</td>
+                </tr>
+                <tr>
+                    <td>Pincode</td>
+                    <td>{{ student_application.communication_address_pincode }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Contact Information</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>STD Code</td>
+                    <td>{{ student_application.std_code }}</td>
+                </tr>
+                <tr>
+                    <td>Telephone</td>
+                    <td>{{ student_application.telephone }}</td>
+                </tr>
+                <tr>
+                    <td>Mobile Phone</td>
+                    <td>+91 {{ student_application.mobile }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ student_application.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Parent/Guardian Details</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Guardian Name:</td>
+                    <td>{{ student_application.parent_guardian_name }}</td>
+                </tr>
+                <tr>
+                    <td>Occupation</td>
+                    <td>{{ student_application.parent_guardian_occupation }}</td>
+                </tr>
+                <tr>
+                    <td>Annual Income (Rs)</td>
+                    <td>{{ student_application.annual_income }}</td>
+                </tr>
+                <tr>
+                    <td>Official Address</td>
+                    <td>{{ student_application.parent_guardian_official_address }}</td>
+                </tr>
+                <tr>
+                    <td>Pincode</td>
+                    <td>{{ student_application.parent_guardian_pincode }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Contact Information : Parent/Gaurdian</div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>STD Code</td>
+                    <td>{{ student_application.parent_guardian_std_code }}</td>
+                </tr>
+                <tr>
+                    <td>Telephone</td>
+                    <td>{{ student_application.parent_guardian_telephone }}</td>
+                </tr>
+                <tr>
+                    <td>Mobile Phone</td>
+                    <td>+91 {{ student_application.parent_guardian_mobile_phone }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ student_application.parent_guardian_email }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">Qualification </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <table class="table table-bordered" style="background-color: azure;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Details of Qualifying Examination Passed:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Degree</td>
+                                    <td>{{ student_application.qualification }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Branch/Subject</td>
+                                    <td>{{ student_application.branch }}</td>
+                                </tr>
+                                <tr>
+                                    <td>University</td>
+                                    <td>{{ student_application.university }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Month & Year of Passing</td>
+                                    <td>{{ student_application.passdate }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Awaiting Degree Result?</td>
+                                    <td>{{ student_application.await_degree }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Degree from outside Kerala?</td>
+                                    <td>{{ student_application.outside_degree }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <table id="marks_table" class="table table-bordered" style="background-color: rgb(239, 237, 232);">
+                    <thead>
+                        <tr>
+                            <th>Semester</th>
+                            <th>Marks Secured</th>
+                            <th>Max. Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if student_application.semester_data %}
+                        {% for i in range((student_application.semester_data | length + 2) // 3) %}
+                        <tr>
+                            {% for j in range(3) %}
+                            <td style="width: 30%;">{{ student_application.semester_data[i * 3 + j] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                <table id="total_marks_table" class="table table-bordered "
+                    style="background-color: rgb(239, 237, 232);">
+                    <tbody>
+                        <tr>
+                            <td style="width: 35%;">Grand Total</td>
+                            <td colspan="2">{{ student_application.sem_mark_total }}</td>
+                            <td colspan="2">{{ student_application.sem_mark_max }}</td>
+
+                        </tr>
+                        <tr>
+                            <td>Percentage of Marks Secured(Aggregate)</td>
+                            <td colspan="2" style="width: 28%;">{{student_application.sem_mark_percentage }}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <tr>
+                    <!--  -->
+                    <div class="container">
+                        <div class="form-group row">
+                            <div class="col-md-6 ">
+                                Whether written CMAT/KMAT/CAT?
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-check form-check-inline">
+                                    {{ student_application.written_mat }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 ">
+                                Details of CMAT/KMAT/CAT
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 ">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr style="background-color: beige;">
+                                            <td>
+                                                Exam Name
+                                            </td>
+                                            <td>
+                                                Register Number
+                                            </td>
+                                            <td>
+                                                Composite Score
+                                            </td>
+                                            <td>
+                                                Date of Test(dd-mm-yyyy)
+                                            </td>
+                                        </tr>
+                                        {% if student_application.reg_num1 %}
+                                        <tr>
+                                            <td style="background-color:lightblue">
+                                                {{ student_application.exam_name1 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.reg_num1 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.composite_score1 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.date_of_test1 }}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if student_application.reg_num2 %}
+
+                                        <tr>
+                                            <td style="background-color:lightblue">
+                                                {{ student_application.exam_name2 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.reg_num2 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.composite_score2 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.date_of_test2 }}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if student_application.reg_num3 %}
+
+                                        <tr>
+                                            <td style="background-color:lightblue">
+                                                {{ student_application.exam_name3 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.reg_num3 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.composite_score3 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.date_of_test3 }}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if student_application.reg_num4 %}
+
+                                        <tr>
+                                            <td style="background-color:lightblue">
+                                                {{ student_application.exam_name4 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.reg_num4 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.composite_score4 }}
+                                            </td>
+                                            <td>
+                                                {{ student_application.date_of_test4 }}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--  -->
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="section-title">Certificates </div>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <td style="width: 15%;">
+                        <b>SSLC</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.sslc_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> PLUS TWO</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.plus_two_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> DEGREE</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.degree_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> KMAT/CMAT/CAT SCORE CARD</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.cmat_score_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> MIGRATION CERTIFICATE</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.migration_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> INCOME CERTIFICATE</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.income_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> COMMUNITY CERTIFICATE / EWS</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.community_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width: 15%;">
+                        <b> PAYMENT RECEIPT</b>
+                    </td>
+                    <td style="width: 85%;">
+                        <div class="custom-file">
+                            {% if student_application.upi_file %}
+                            <p style="color: red; font-weight: bold; font-size: 15px;">Uploaded</p>
+                            {% else %}
+                            No file uploaded
+                            {% endif %}
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">Payment Information </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td> UTR/UPI Transaction Details</td>
+                    <td> {{ student_application.utr_upi_transaction_details }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section-title">Other </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Applicant Signature</td>
+                    <td>
+                        <div id="imageBoxSign" class="image-boxSign">
+                            <img id="previewImage"
+                                src="{{ applicant_sign_url }}"
+                                class="view-mode" />
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <!-- Nothing Just to keep some spacing -->
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="footer">
+        &copy; 2024 Institute of Land and Disaster Management. All rights reserved.
+    </div>
+    <!-- Bootstrap JS (optional, for certain components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+
+</html>
